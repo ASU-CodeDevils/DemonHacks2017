@@ -1,11 +1,5 @@
 import io from 'socket.io-client'
-const socket = io('localhost:3000')
-
-// socket.on('newGameCreated', onNewGameCreated)
-// socket.on('playerJoinedRoom', onPlayerJoinedRoom)
-// socket.on('beginNewGame', onBeginNewGame)
-// socket.on('newPlayerData', onNewPlayerData)
-// socket.on('gameOver', onGameOver)
+const socket = io()
 
 function onConnected (cb) {
   socket.on('connected', () => cb(socket.socket.sessionid))

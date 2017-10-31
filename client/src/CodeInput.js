@@ -13,15 +13,7 @@ class CodeInput extends React.Component {
       e.preventDefault()
       e.target.value = e.target.value + '  '
     }
-    const charactersTyped = e.target.value.length
-    let firstMistake = -1
-    for (let i = 0; i < charactersTyped; i++) {
-      if (e.target.value[i] !== this.props.currentLine[i]) {
-        firstMistake = i
-        break
-      }
-    }
-    this.props.changeCallback(charactersTyped, firstMistake)
+    this.props.changeCallback(e.target.value, e.key === 'Enter')
   }
   onKeyDown (e) {
     if (e.key === 'Backspace' || e.key === 'Enter') {

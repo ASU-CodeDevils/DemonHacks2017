@@ -40,10 +40,17 @@ class Typer extends Component {
       lines: this.state.lines + 1
     })
   }
-  codeChanged (charsTyped, firstMistake) {
+  codeChanged (currVal, isEnter) {
+    const charsTyped = currVal.length
+    let firstMistake = -1
+    for (let i = 0; i < charsTyped; i++) {
+      if (currVal[i] !== this.state.formattedData[this.state.currentLine][i]) {
+        firstMistake = i
+        break
+      }
+    }
     const lineLength = this.state.formattedData[this.state.currentLine].length
-    console.log('length: ' + lineLength + ' typed: ' + charsTyped)
-    if (charsTyped === lineLength - 2 && firstMistake === -1) {
+    if (charsTyped - lineLength <= 2 && firstMistake === -1 && isEnter) {
       this.setState({
         ...this.state,
         shouldLineReset: true,
@@ -83,7 +90,7 @@ class Typer extends Component {
           <CodeDisplay currentLineIdx={this.state.currentLine} firstMistake={this.state.firstMistake} charactersTyped={this.state.charactersTyped}>
             {
               this.state.formattedData.slice(
-                this.state.currentLine,
+                0,
                 this.state.currentLine + 6
               )
             }
@@ -96,7 +103,7 @@ class Typer extends Component {
           <CodeDisplay currentLineIdx={this.state.currentLine} firstMistake={this.state.firstMistake} charactersTyped={this.state.charactersTyped}>
             {
               this.state.formattedData.slice(
-                this.state.currentLine,
+                0,
                 this.state.currentLine + 6
               )
             }
